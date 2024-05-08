@@ -20,7 +20,7 @@ It demonstrates real-time 3D object detection through the PyTorch implementation
 * Anaconda
 
 Tested on
-* Ubuntu 22.04 LTS, ROS Humble Hawksbill (other dependencies in )
+* Ubuntu 22.04 LTS, ROS Humble Hawksbill, PyTorch 2.3.0, CUDA 11.8
 
 ## Deployment Overview
 The entire project has two sections-
@@ -42,8 +42,95 @@ To get started, follow these steps:
 git clone https://github.com/Hetal-patel1994/3d-single-object-detection.git
 ```
 
-### 2. Navigate to project directory
+### Set Up Environment
+
+Create conda environment
 
 ```bash
-cd heart-disease-diagnosis
+conda create -n yolo3d python=3.10 numpy
 ```
+
+Install PyTorch and torchvision version above 1.8 as per python and supported GPU
+
+```bash
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+### Navigate to project directory
+
+```bash
+cd 3d-single-object-detection\src\yolo3d\scripts\
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Download Pretrained Weights
+
+To run inference code or resuming training, you can download pretrained ResNet18 or VGG11 model. I have train model with 10 epoch each. You can download model with resnet18 or vgg11 for --weights arguments.
+
+```bash
+cd 3d-single-object-detection\src\yolo3d\scripts\weights
+python get_weights.py --weights resnet18
+```
+
+### Inference
+
+For inference with pretrained model you can run below code.
+
+```bash
+python inference.py \
+    --weights yolov5s.pt \
+    --source eval/image_2 \
+    --reg_weights weights/resnet18.pkl \
+    --model_select resnet18 \
+    --output_path runs/ \
+    --show_result --save_result
+```
+
+## 2. Robot Integration with Gazebo and ROS2
+- **Develop a Simulated Environment in Gazebo:**  Design a Gazebo 3D environment with relevant detection objects (matching KITTI categories) and define a camera sensor model matching the robot's actual camera.
+- **Develop ROS2 Nodes for Robot Integration:**  Develop ROS2 nodes for capturing camera images, performing model inference using YOLOv5 on these images, and publishing the resulting 3D bounding box predictions and confidence scores on a dedicated ROS topic.
+
+### How to run
+To get started, follow these steps:
+
+### Navigate to project directory
+
+```bash
+cd 3d-single-object-detection
+```
+
+### Install Dependencies
+
+```bash
+colcon build
+```
+
+### Launch
+
+Terminal-1: To load the Gazebo environment
+
+```bash
+source 3d-single-object-detection/install/setup.bash
+ros2 launch gazebo_simulation simulation.launch.py
+```
+
+Terminal-2:  To load the detection inference
+
+```bash
+source 3d-single-object-detection/install/setup.bash
+ros2 run yolo3d inference_ros.py
+```
+
+## Screenshots
+
+<div>
+<img src="screenshots/ss_3.PNG">
+<img src="screenshots/ss_6.PNG">
+<img src="screenshots/ss_8.PNG">
+
+</div>
