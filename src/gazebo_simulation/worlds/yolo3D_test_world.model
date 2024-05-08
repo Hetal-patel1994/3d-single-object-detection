@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="default">
+
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://rs_robot</uri>
+      <pose>0 0 0 0 0 0</pose>
+      <static>false</static>
+    </include>
+
+    <include>
+      <uri>model://prius_hybrid</uri>
+      <pose>8.01 4.25 0 0 0 0.833</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://suv</uri>
+      <pose>2.72 5.29 0 0 0 -2.29</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://hatchback</uri>
+      <pose>8.18 -3.42 0 0 0 2.52</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://hatchback_blue</uri>
+      <pose>3.804 -4.83 0 0 0 2.4</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://pickup</uri>
+      <pose>15.03 0.594 0 0 0 2.61</pose>
+      <static>true</static>
+    </include>
+
+  </world>
+</sdf>
