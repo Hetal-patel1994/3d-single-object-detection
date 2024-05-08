@@ -129,8 +129,8 @@ ros2 run yolo3d inference_ros.py
 ## Screenshots
 
 <div>
-<img src="screenshots/ss_3.PNG">
-<img src="screenshots/ss_6.PNG">
-<img src="screenshots/ss_8.PNG">
+<img src="screenshots/ss_3.png">
+<img src="screenshots/ss_6.png">
+<img src="screenshots/ss_8.png">
 
 </div>
